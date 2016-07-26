@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>MSS</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+</head>
+<body ng-app="app" ng-controller="ctrl">
+<img src="loginimg.png" ng-click="login()">
+ <form action="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:3000/">
+ <input type="submit" value="logout">
+ </form>
+</body>
+<script>
+var app = angular.module("app",[]);
+app.controller("ctrl",function($scope, $http, $window){
+
+var url;
+var windowThatWasOpened;
+$http.get("url").then(function(reponse){
+url=reponse.data;
+});
+$scope.login = function(){
+windowThatWasOpened = $window.open(url);
+};
+window.onmessage = function(e){
+windowThatWasOpened.close() 
+var urlWithCode = e.data;
+var idx = urlWithCode.lastIndexOf("code=");
+var code = urlWithCode.substring(idx +5).replace("#","");
+
+console.log(code);
+$http.get("tokens?code="+code).then(function(reponse){
+console.log(response.data);
+});
+};
+});
+
+</script>
+</html>
