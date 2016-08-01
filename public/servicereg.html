@@ -8,12 +8,9 @@
 	
 	<title>Sign up</title>
 
-	<link rel="shortcut icon" href="images1/gt_favicon.png">
-	
-	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="bootstrap.min.css">
-	<!-- <link rel="stylesheet" href="font-awesome.min.css"> -->
-	<!-- Custom styles for our template -->
+	<link rel="stylesheet" href="font-awesome.min.css">
 	<link rel="stylesheet" href="bootstrap-theme.css" media="screen" >
 	<link rel="stylesheet" href="main.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
@@ -40,14 +37,6 @@ $("#register").click(function(){
 			$.post("/register",{fullName : FullName,email : Email,password : Password,confirmPassword : ConfirmPassword, ServiceType : ServiceType,address : Address,city : City,Pincode : PINCode,phoneNumber : PhoneNumber,docId : docId},function(responseHTML) {$('#asd').html(responseHTML);});
 		});
 	</script>
-
-	    
-
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="assets/js/html5shiv.js"></script>
-	<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
 </head>
 
 
@@ -58,28 +47,26 @@ $("#register").click(function(){
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="images1/logo.png" alt="Progressus HTML5 template"></a>
+				<a class="navbar-brand" href="index.html">g<span style ="color:#FF8C00"><i class="fa fa-cog fa-spin"></i></span>Service</a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="about.html">Services</a></li>
-					
-					<li><a href="contact.html">Contact</a></li>
-					<li><a href="contact.html">Our Team</a></li>
+					<li class="active"><a href="index.html"><i class="fa fa-home"></i>Home</a></li>
+							
+					<li><a href="service.html"><i class="fa fa-wrench"></i>Services</a></li>
+	
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign up <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-pencil-square-o"></i>Sign up <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li class="active"><a href="reguser.html">Customer</a></li>
-							<li><a href="regservice.html">Service Provider</a></li>
+							<li><a href="reguser.html"><i class="fa fa-users"></i>Customer</a></li>
+				
 						</ul>
 					</li>
-					<li><a class="btn" href="login.html">Login</a></li>
+					<li><a href="loginPage.html"><i class="fa fa-user"></i>Login</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
-	</div> 
+	</div>
 	<!-- /.navbar -->
 
 	<header id="head" class="secondary"></header>
@@ -89,7 +76,7 @@ $("#register").click(function(){
 
 		<ol class="breadcrumb">
 			<li class="active">Customer</li>
-			<li><a href="regservice.html">Service Provider</a></li>
+			<li><a href="regservice.html">Service men</a></li>
 			
 		</ol>
 
@@ -107,7 +94,7 @@ $("#register").click(function(){
 							<h3 class="thin text-center">Register a new account</h3>
 							<p class="text-center text-muted">If you are a registered user then <a href="login.html">Login</a> here. If you want create an account fill the below registration form and become permanent user </p>
 							<hr>
-							<form name="myForm" action="register" method="post">
+							<form name="myForm" action="/serregister" method="post">
 								<div class="top-margin">
 									<label>Full Name <span class="text-danger">*</span></label>
 									<input type="text" class="form-control" name="myName" ng-model="myName" required/> 
@@ -233,18 +220,22 @@ $("#register").click(function(){
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
-							<p>+234 23 9873237<br>
-								<a href="mailto:#">some.email@somewhere.com</a><br>
+							<p>Ph: (248)-233-1100<br>
+								<a href="mailto:#">www.miraclesoft.com</a><br>
 								<br>
-								234 Hidden Pond Road, Ashland City, TN 37015
+					Miracle Software Systems, Inc.
+					Global Headquarters
+					45625 Grand River Avenue
+					Novi, MI - USA( 48374 )
 							</p>	
 						</div>
 					</div>
 
 					<div class="col-md-3 widget">
+					
 						<h3 class="widget-title">Follow me</h3>
 						<div class="widget-body">
-							<p class="follow-me-icons clearfix">
+							<p class="follow-me-icons">
 								<a href=""><i class="fa fa-twitter fa-2"></i></a>
 								<a href=""><i class="fa fa-dribbble fa-2"></i></a>
 								<a href=""><i class="fa fa-github fa-2"></i></a>
@@ -254,10 +245,10 @@ $("#register").click(function(){
 					</div>
 
 					<div class="col-md-6 widget">
-						<h3 class="widget-title">Text widget</h3>
+						<h3 class="widget-title"><b><span style ="color:#FF8C00">About g<i class="fa fa-cog fa-spin"></i>Services</span></b></h3>
 						<div class="widget-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, dolores, quibusdam architecto voluptatem amet fugiat nesciunt placeat provident cumque accusamus itaque voluptate modi quidem dolore optio velit hic iusto vero praesentium repellat commodi ad id expedita cupiditate repellendus possimus unde?</p>
-							<p>Eius consequatur nihil quibusdam! Laborum, rerum, quis, inventore ipsa autem repellat provident assumenda labore soluta minima alias temporibus facere distinctio quas adipisci nam sunt explicabo officia tenetur at ea quos doloribus dolorum voluptate reprehenderit architecto sint libero illo et hic.</p>
+							<p>The term goServices increasingly describes a paid worker, but it also includes non-paid homeowners or do-it-yourselfers. Tasks range from minor to major, from unskilled to highly skilled, and include painting, drywall repair, remodeling, minor plumbing work, minor electrical work, household carpentry, sheetrock, crown moulding, and furniture assembly</p>
+							<p><span style ="color:#FF8C00">What we are?:</span></b>We provide a better services by producing better goServices's with sufficient cost which was reasonable. The user or customer can easily access our website because its a user friendly. Our goal is to provide service in easy manner, making customer happy and with in budget.</p>
 						</div>
 					</div>
 
@@ -292,6 +283,7 @@ $("#register").click(function(){
  <!-- /row of widgets -->
 			</div>
 		</div>
+
 	</footer>	
 		
 

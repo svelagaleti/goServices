@@ -36,7 +36,7 @@ $("#register").click(function(){
 		var PhoneNumber = $('#registerphone').val();
 		var docId = $('#registeremail').val();
 		alert(docId);
-			$.post("/register",{full Name : FullName,email : Email,password : Password,confirm Password : ConfirmPassword,address : Address,city : City,Pincode : PINCode,phoneNumber : PhoneNumber,docId : docId},function(responseHTML) {$('#asd').html(responseHTML);});
+			$.post("/userregister",{full Name : FullName,email : Email,password : Password,confirm Password : ConfirmPassword,address : Address,city : City,Pincode : PINCode,phoneNumber : PhoneNumber,docId : docId},function(responseHTML) {$('#asd').html(responseHTML);});
 		});
 	</script>
 
@@ -97,7 +97,7 @@ $("#register").click(function(){
 							<h3 class="thin text-center">Register a new account</h3>
 							<p class="text-center text-muted">If you are a registered user then <a href="login.html">Login</a> here. If you want create an account fill the below registration form and become permanent user </p>
 							<hr>
-							<form name="myForm" action="register" method="post">
+							<form name="myForm" action="/register" method="post">
 								<div class="top-margin">
 									<label>Full Name <span class="text-danger">*</span></label>
 									<input type="text" class="form-control" name="myName" ng-model="myName" required/> 
@@ -262,9 +262,5 @@ $("#register").click(function(){
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<!-- <script src="headroom.min.js"></script>  -->
-	<!-- <script src="jQuery.headroom.min.js"></script> -->
-	<!-- <script src="template.js"></script> -->
-	
 </body>
 </html>

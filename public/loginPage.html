@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="Sergey Pozhilov (GetTemplate.com)">
-
 <title>Sign in</title>
 
 <link rel="shortcut icon" href="images1/gt_favicon.png">
@@ -30,23 +29,27 @@ $("#sign").click(function(){
 	$.post("/login",{Password : Password,Email : Email},function(responseText) {
 		alert(responseText);
 		if(responseText === "wrongUserName"){
-			$('#mailWrong').html("<h1>No User Accout with given Mail Address</h1>");
+			$('#mailWrong').html("<h5>No User Accout with given Mail Address</h5>");
 		}else if(responseText === "wrongPassword"){
-			$('#pwdWrong').html("<h1>Authentication Failed</h1>");
+			$('#pwdWrong').html("<h5>Authentication Failed</h5>");
 		}else{
-			alert("asdfasd00");
+	//		alert("asdfasd00");
+			$(location).attr('href','/myaccount.html');
 		}
 		});
 	});
 	});
+$(document).on("click", "#forgotPassword", function() {
+	alert("fp");
+	Email = $('#signemail').val();
+	alert("Email");
+	$.post("/forgotPassword",{Email : Email}, function(responseHTML){
+		$('#forgotPwdBlock').html(responseHTML);
+	});
+});
+
 		</script>
-
-
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-	<script src="assets/js/html5shiv.js"></script>
-	<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
+		
 </head>
 <body>
 	<!-- Fixed navbar -->
@@ -59,27 +62,37 @@ $("#sign").click(function(){
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.html"><img
-					src="images1/logo.png" alt="Progressus HTML5 template"></a>
+				<a class="navbar-brand" href="index.html">g<span style ="color:#FF8C00"><i class="fa fa-cog fa-spin"></i></span>Service</a></div>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li><a href="index.html">Home</a></li>
+					<li><a href="index.html"><i class="fa fa-home"></i>Home</a></li>
 
-					<li><a href="about.html">Services</a></li>
+					<li><a href="service.html"><i class="fa fa-wrench"></i>Services</a></li>
 
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown">Sign up <b class="caret"></b></a>
+						data-toggle="dropdown"><i class="fa fa-pencil-square-o"></i>Sign up <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="reguser.html">Customer</a></li>
-							<li><a href="regservice.html">Service Provider</a></li>
+							<li><a href="userReg.html"><i class="fa fa-users"></i>Customer</a></li>
+							<li><a href="servicereg.html"><i class="fa fa-user"></i>Service Men</a></li>
 						</ul></li>
-					<li class="active"><a class="btn" href="login.html">Login</a></li>
+					<!--<li class="active"><a class="btn" href="login.html">Login</a></li>-->
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
 		</div>
-	</div>
+		<script>
+			<!--function myFunction() {
+			var person = prompt("Please enter your email", "");
+			if (confirm("check your email!") == true) {
+			person = "You pressed OK!";
+			} else {
+			person = "You pressed Cancel!";
+			}
+			document.getElementById("demo").innerHTML = person;
+			}-->
+			</script>
+	
 	<!-- /.navbar -->
 
 	<header id="head" class="secondary"></header>
@@ -118,28 +131,27 @@ $("#sign").click(function(){
 									type="password" class="form-control" name="psw" id="signpsw">
 								<div id="pwdWrong"></div>
 							</div>
-
 							<hr>
-
-							<div class="row">
-								<div class="col-lg-8">
-									<b><a href="forgotpassword.html">Forgot password?</a></b>
-								</div>
+							<div class="col-lg-8">
+							<div id="forgotPwdBlock"><button id="forgotPassword" 
+							class="btn btn-action" >Forgot your password </button></div>
+							</div>
+							
 								<div class="col-lg-4 text-right">
 									<button class="btn btn-action" type="submit" id="sign">Sign
-										in</button>
+										in</button> <br> 
+								</div>
 								</div>
 							</div>
 						</div>
 					</div>
 
-				</div>
+				
 
 			</article>
 			<!-- /Article -->
-
 		</div>
-	</div>
+		</div>
 	<!-- /container -->
 
 
@@ -175,7 +187,7 @@ $("#sign").click(function(){
 
 					<div class="col-md-6 widget">
 						<h3 class="widget-title">
-							<b><span style="color: #FF8C00">About goServices</span></b>
+							<b><span style="color: #FF8C00">About g<span style ="color:#FF8C00"><i class="fa fa-cog fa-spin"></i></span>Services</span></b>
 						</h3>
 						<div class="widget-body">
 							<p>The term goServices increasingly describes a paid worker,
