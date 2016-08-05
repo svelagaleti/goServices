@@ -79,7 +79,6 @@ function getRandomCode() {
 // cfenv provides access to your Cloud Foundry environment
 // for more info, see: https://www.npmjs.com/package/cfenv
 
-
 app.post('/login', function(req, res) {
 	var doc = req.body.Email;
 	var pword = req.body.Password;
@@ -98,7 +97,7 @@ app.post('/login', function(req, res) {
 					if (i.password !== pword) {
 						res.send("wrongPassword");
 					} else {
-						res.send("login");
+						res.send(i._id + " " + i.fullName);
 					}
 				}
 			});
@@ -108,7 +107,7 @@ app.post('/login', function(req, res) {
 			if (i.password !== pword) {
 				res.send("wrongPassword");
 			} else {
-				res.send("login");
+				res.send(i._id + " " + i.fullName);
 			}
 		}
 	});
@@ -120,45 +119,44 @@ app.post('/forgotPassword', function(req, res) {
 	var dbService = cloudant.db.use('servicereg');
 	dbUser.get(Email, function(err, data) {
 		if (isEmpty(data)) {
-		dbService.get(Email, function(err, data) {
-		var loginJson = JSON.stringify(data);
-		var loginStringJSON = JSON.parse(loginJson);
+			dbService.get(Email, function(err, data) {
+				var loginJson = JSON.stringify(data);
+				var loginStringJSON = JSON.parse(loginJson);
 
-		// sending random password to mail here
-		var mailOptions = {
-			from : "goservice.org@gmail.com",
-			to : Email,
-			subject : "Re: Password Forgotten Request from goservice",
-			text : "Your new Password is : " + randomPassword
-		};
-		console.log(mailOptions);
-		smtpTransport.sendMail(mailOptions, function(error, response) {
-			if (error) {
-				console.log(error);
-				res.end("error");
-			} else {
-				res.end("sent");
-			}
-		});
-		console.log(loginStringJSON);
-		dbService.insert({
-			_id : Email,
-			_rev : loginStringJSON._rev,
-			 fullName: loginStringJSON.FullName,
-			password : randomPassword,
-			PhoneNumber : loginStringJSON.PhoneNumber,
-			address : loginStringJSON.address,
-			ServiceType : loginStringJSON.ServiceType,
-			city : loginStringJSON.city,
-			Pincode : loginStringJSON.Pincode,
-		}, function(err, data) {
-			console.log(err);
-		});
+				// sending random password to mail here
+				var mailOptions = {
+					from : "goservice.org@gmail.com",
+					to : Email,
+					subject : "Re: Password Forgotten Request from goservice",
+					text : "Your new Password is : " + randomPassword
+				};
+				console.log(mailOptions);
+				smtpTransport.sendMail(mailOptions, function(error, response) {
+					if (error) {
+						console.log(error);
+						res.end("error");
+					} else {
+						res.end("sent");
+					}
+				});
+				console.log(loginStringJSON);
+				dbService.insert({
+					_id : Email,
+					_rev : loginStringJSON._rev,
+					fullName : loginStringJSON.fullName,
+					password : randomPassword,
+					PhoneNumber : loginStringJSON.PhoneNumber,
+					address : loginStringJSON.address,
+					ServiceType : loginStringJSON.ServiceType,
+					city : loginStringJSON.city,
+					Pincode : loginStringJSON.Pincode,
+				}, function(err, data) {
+					console.log(err);
+				});
 
-		res.send("<p>New Password has been sent to your mail!</p>");
-	});
-		}
-		else{
+				res.send("<p>New Password has been sent to your mail!</p>");
+			});
+		} else {
 			dbUser.get(Email, function(err, data) {
 				var loginJson = JSON.stringify(data);
 				var loginStringJSON = JSON.parse(loginJson);
@@ -183,11 +181,11 @@ app.post('/forgotPassword', function(req, res) {
 				dbUser.insert({
 					_id : Email,
 					_rev : loginStringJSON._rev,
-					 fullName: loginStringJSON.FullName,
+					fullName : loginStringJSON.fullName,
 					password : randomPassword,
 					PhoneNumber : loginStringJSON.PhoneNumber,
 					address : loginStringJSON.address,
-					//ServiceType : loginStringJSON.ServiceType,
+					// ServiceType : loginStringJSON.ServiceType,
 					city : loginStringJSON.city,
 					Pincode : loginStringJSON.Pincode,
 				}, function(err, data) {
@@ -197,11 +195,11 @@ app.post('/forgotPassword', function(req, res) {
 				res.send("<p>New Password has been sent to your mail!</p>");
 			});
 
-			}
-});
+		}
+	});
 });
 
-/*reset password*/
+/* reset password */
 app.post('/resetpassword', function(req, res) {
 
 	var doc = req.body.Email;
@@ -212,19 +210,19 @@ app.post('/resetpassword', function(req, res) {
 	var dbUser = cloudant.db.use('userregister');
 	var dbService = cloudant.db.use('servicereg');
 	dbService.get(doc, function(err, data1) {
-		if(isEmpty(data1)){
+		if (isEmpty(data1)) {
 			dbUser.get(doc, function(err, data) {
-				if(isEmpty(data)) {
+				if (isEmpty(data)) {
 					res.send("wrongUserName");
-				}else {
+				} else {
 					var loginJson = JSON.stringify(data);
 					var loginStringJSON = JSON.parse(loginJson);
-					if(oldpword==loginStringJSON.password){
+					if (oldpword == loginStringJSON.password) {
 						console.log(loginStringJSON);
 						dbUser.insert({
 							_id : doc,
 							_rev : loginStringJSON._rev,
-							fullName: loginStringJSON.FullName,
+							fullName : loginStringJSON.fullName,
 							password : newpword,
 							PhoneNumber : loginStringJSON.PhoneNumber,
 							addr : loginStringJSON.addr,
@@ -232,57 +230,57 @@ app.post('/resetpassword', function(req, res) {
 							Pincode : loginStringJSON.Pincode,
 						}, function(err, data) {
 							console.log(err);
-						}
-						);
+						});
 
 						res.send("<p>New Password has been generated</p>");
-					}else{
+					} else {
 						res.send("<p>wrong password</p>");
 					}
-				
-					if (err){
+
+					if (err) {
 						return err;
 					}
 				}
-				
+
 			});
 		}
-					//res.send(data)
-		
-					else { 
-						var loginJson = JSON.stringify(data1);
-						var loginStringJSON = JSON.parse(loginJson);
-						if(oldpword==loginStringJSON.password){
-							console.log(loginStringJSON);
-							dbService.insert({
-								_id : doc,
-								_rev : loginStringJSON._rev,
-								fullName: loginStringJSON.FullName,
-								password : newpword,
-								PhoneNumber : loginStringJSON.PhoneNumber,
-								address : loginStringJSON.address,
-								ServiceType : loginStringJSON.ServiceType,
-								city : loginStringJSON.city,
-								Pincode : loginStringJSON.Pincode,
-							}, function(err, data1) {
-								console.log(err);
-							}
-							);
+		// res.send(data)
 
-							res.send("<p>New Password has been generated</p>");
-						}else{
-							res.send("<p>wrong password</p>");
-						}
-				
-						if (err){
-							return err;
-						}
-					}
-					//res.send(data)
-	
-		});
-		
+		else {
+			var loginJson = JSON.stringify(data1);
+			var loginStringJSON = JSON.parse(loginJson);
+			if (oldpword == loginStringJSON.password) {
+				console.log(loginStringJSON);
+				dbService.insert({
+					_id : doc,
+					_rev : loginStringJSON._rev,
+					fullName : loginStringJSON.fullName,
+					password : newpword,
+					PhoneNumber : loginStringJSON.PhoneNumber,
+					address : loginStringJSON.address,
+					ServiceType : loginStringJSON.ServiceType,
+					city : loginStringJSON.city,
+					Pincode : loginStringJSON.Pincode,
+				}, function(err, data1) {
+					console.log(err);
+				});
+
+				res.send("<p>New Password has been generated</p>");
+				res.redirect("loginPage.html");
+			} else {
+				res.send("<p>wrong password</p>");
+				res.redirect("resetpassword.html");
+			}
+
+			if (err) {
+				return err;
+			}
+		}
+		// res.send(data)
+
 	});
+
+});
 
 app.get('/register', function(req, res) {
 	res.sendFile(__dirname + '/public/' + 'index.html');
@@ -291,7 +289,7 @@ app.post('/register', function(req, res) {
 	var FullName = req.body.myName;
 	var Email = req.body.email;
 	var Password = req.body.psw;
-	//var ConfirmPassword = req.body.cpsw;
+	// var ConfirmPassword = req.body.cpsw;
 	var Address = req.body.address;
 	var City = req.body.city;
 	var PINcode = req.body.pin;
@@ -299,11 +297,11 @@ app.post('/register', function(req, res) {
 	var docId = req.body.email;
 	var dbUser = cloudant.db.use('userregister');
 	dbUser.insert({
-		"_id": docId,
+		"_id" : docId,
 		"fullName" : FullName,
 		"email" : Email,
 		"password" : Password,
-		//" confirmPassword" : ConfirmPassword,
+		// " confirmPassword" : ConfirmPassword,
 		"addr" : Address,
 		"city" : City,
 		"Pincode" : PINcode,
@@ -315,7 +313,7 @@ app.post('/register', function(req, res) {
 		// console.log(data);
 		// res.send("Registered Successfull");
 		res.redirect("loginPage.html");
-		//alert();
+		// alert();
 	});
 })
 app.get('/register', function(req, res) {
@@ -325,7 +323,7 @@ app.post('/serregister', function(req, res) {
 	var FullName = req.body.myName;
 	var Email = req.body.email;
 	var Password = req.body.psw;
-	//var ConfirmPassword = req.body.cpsw;
+	// var ConfirmPassword = req.body.cpsw;
 	var ServiceType = req.body.servicetype;
 	var Address = req.body.address;
 	var City = req.body.city;
@@ -338,7 +336,7 @@ app.post('/serregister', function(req, res) {
 		"fullName" : FullName,
 		"email" : Email,
 		"password" : Password,
-		//" confirmPassword" : ConfirmPassword,
+		// " confirmPassword" : ConfirmPassword,
 		"ServiceType" : ServiceType,
 		"address" : Address,
 		"city" : City,
@@ -352,7 +350,15 @@ app.post('/serregister', function(req, res) {
 		// res.send("Registered Successfull");
 		res.redirect("loginPage.html");
 	});
-})
+});
+
+app.post('/getServiceManDetails', function(req, res){
+	var dbService = cloudant.db.use('servicereg');
+	dbService.get(req.body.serviceMailAddr, function(err, data) {
+		res.send(data);
+	});
+});
+
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 // start server on the specified port and binding host
@@ -360,6 +366,3 @@ app.listen(appEnv.port, '0.0.0.0', function() {
 	// print a message when the server starts listening
 	console.log("server starting on " + appEnv.url);
 });
-
-	
-	
