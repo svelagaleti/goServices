@@ -16,6 +16,8 @@
 	<!-- Custom styles for our template -->
 	<link rel="stylesheet" href="bootstrap-theme.css" media="screen" >
 	<link rel="stylesheet" href="main.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+	
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
@@ -61,11 +63,11 @@ $("#register").click(function(){
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-pencil-square-o"></i>Sign up <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="reguser.html"><i class="fa fa-users"></i>Customer</a></li>
+							<li><a href="servicereg.html"><i class="fa fa-users"></i>Service men</a></li>
 				
 						</ul>
 					</li>
-					<li><a href="loginPage.html"><i class="fa fa-user"></i>Login</a></li>
+					<li><a href="loginPage.html"><i class="fa fa-lock"></i>Login</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -79,7 +81,7 @@ $("#register").click(function(){
 
 		<ol class="breadcrumb">
 			<li class="active">Customer</li>
-			<li><a href="regservice.html">Service Provider</a></li>
+			<li><a href="servicereg.html">Service men</a></li>
 			
 		</ol>
 
@@ -142,13 +144,14 @@ $("#register").click(function(){
 								</div>
 								<div class="top-margin">
 									<label>PINCode <span class="text-danger">*</span></label>
-									<input type="text" class="form-control" name="pin" ng-model="pin" required/>
+									<input type="text" class="form-control" name="pin" ng-model="pin" ng-pattern="/^[0-9]{6,6}$/" ng-maxlength="6" ng-minlength="6" required/>
 									<span style="color:red; font-size:13" ng-show="myForm.pin.$touched && myForm.pin.$invalid">PINCode is Mandatory</span>
-
+									<span style="color:red;font-size:13" ng-show="myForm.pin.$error.pattern">Enter valid PIN</span><br/>
+                                    
 								</div>
 								<div class="top-margin">
 									<label>Phone Number <span class="text-danger">*</span></label>
-									<input type="text" class="form-control" name="phone" ng-pattern="/^[7-9][0-9]{9,9}$/" ng-model="phone" required required/>
+									<input type="text" class="form-control" name="phone" ng-pattern="/^[7-9][0-9]{9,9}$/" ng-model="phone" ng-maxlength="10" ng-minlength="10" required/>
 									<span style="color:red;font-size:13" ng-show="myForm.phone.$error.pattern">Enter valid number</span><br/>
                                     <span style="color:red; font-size:13" ng-show="myForm.phone.$touched && myForm.phone.$invalid">Please Provide Phone Number</span>
 
@@ -164,7 +167,7 @@ $("#register").click(function(){
 										</label>                        
 									</div>
 									<div class="col-lg-4 text-right">
-										<button class="btn btn-action" type="submit" id="register">Register</button>
+										<button class="btn btn-action" type="submit" name = "reg" id="register" ng-disabled="myForm.$invalid">Register</button>
 									</div>
 								</div>
 							</form>
@@ -233,11 +236,10 @@ $("#register").click(function(){
 						<div class="widget-body">
 							<p class="simplenav">
 								<a href="#">Home</a> | 
-								<a href="about.html">About</a> |
-								<a href="services.html">Services</a> |
-								<a href="contact.html">Contact</a> |
-								<b><a href="reguser.html">Sign Up</a></b> |
-								<b><a href="login.html">Login</a></b>
+								<a href="service.html">Services</a> |
+						
+								<b><a href="userReg.html">Sign Up</a></b> |
+								<b><a href="loginPage.html">Login</a></b>
 							</p>
 						</div>
 					</div>

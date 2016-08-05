@@ -9,6 +9,8 @@
 	<title>Services Page</title>
 
 	<link rel="shortcut icon" href="images1/gt_favicon.png">
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="service.js"></script>
 	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="bootstrap.min.css">
@@ -21,14 +23,11 @@
 	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="assets/js/html5shiv.js"></script>
-	<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
+
 </head>
 
-<body>
+
+<body ng-app="">
 				<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
 		<div class="container">
@@ -46,7 +45,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-pencil-square-o"></i>Sign up <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="userReg.html"><i class="fa fa-users"></i>Customer</a></li>
-							<li><a href="servicereg.html"><i class="fa fa-user"></i>Service Men</a></li>
+							<li><a href="servicereg.html"><i class="fa fa-user"></i>Service Provider</a></li>
 						</ul>
 					</li>
 					<li><a class="btn" href="login.html"><i class="fa fa-lock"></i>Login</a></li>
@@ -69,155 +68,199 @@
 		<div class="row">
 			
 			<!-- Sidebar -->
-			<aside class="col-md-4 sidebar sidebar-left">
+			<aside class="col-md-3 sidebar sidebar-left">
 			
-			<div class="w3-accordion">
-    <a onclick="myAccFunc()" href="#">
-      Home Maintainence <i class="fa fa-caret-down"></i>
-    </a>
-    <div id="demoAcc" class="w3-accordion-content w3-white w3-card-4">
-      <a href="#">Plumber</a>
-      <a href="#">Carpenter</a>
-      <a href="#">Electrician</a>
-	  <a href="#">Flooring</a>
-	  <a href="#">Kitchen Chimney Repair</a>
-	 <a href="#">Borewell Motor Repair</a>
-    </div>
-  </div>
-  
-  	<div class="w3-accordion">
-    <a onclick="myAccFunc2()" href="#">
-      Home Improvement  <i class="fa fa-caret-down"></i>
-    </a>
-<div id="demoAcc2" class="w3-accordion-content w3-white w3-card-4">
-      <a href="#">Fabrication Works</a>
-      <a href="#">POP / False Ceiling</a>
-      <a href="#">New Sofa Makers</a>
-	  <a href="#">Interior Designer</a>
-	   </div>
-  </div>
-				
-
-			<div class="w3-accordion">
-    <a onclick="myAccFunc3()" href="#">
-      Home Appliance Repair  <i class="fa fa-caret-down"></i>
-    </a>
-<div id="demoAcc3" class="w3-accordion-content w3-white w3-card-4">
-      <a href="#">AC/cooler Repair</a>
-      <a href="#">Washing Machine Repair</a>
-      <a href="#">Gas Stove Repair</a>
-	  <a href="#">Laptop & Computer Repair</a>
-	  <a href="#">Refrigerator/Fridge Repair</a>
-	  <a href="#">Fan Repair</a>
-	  <a href="#">TV Repair</a>
-	  </div>
-  </div>
-  
-  <div class="w3-accordion">
-    <a onclick="myAccFunc4()" href="#">
-      Home Needs  <i class="fa fa-caret-down"></i>
-    </a>
-<div id="demoAcc4" class="w3-accordion-content w3-white w3-card-4">
-      <a href="#">Drivers</a>
-      <a href="#">Car Wash- Door Step</a>
-      <a href="#">Packers & Movers</a>
-	  <a href="#">DTH Services</a>
-	  <a href="#">Purohit/Pooja Services</a>
-	  <a href="#">Caterers</a>
-	   </div>
-  </div>
-  </aside>
-			
-			<script>
-function myAccFunc() {
-    var x = document.getElementById("demoAcc");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-        x.previousElementSibling.className += " w3-green";
-    } else { 
-        x.className = x.className.replace(" w3-show", "");
-        x.previousElementSibling.className = 
-        x.previousElementSibling.className.replace(" w3-green", "");
-    }
-}
-
-function myAccFunc2() {
-    var x = document.getElementById("demoAcc2");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-        x.previousElementSibling.className += " w3-green";
-    } else { 
-        x.className = x.className.replace(" w3-show", "");
-        x.previousElementSibling.className = 
-        x.previousElementSibling.className.replace(" w3-green", "");
-    }
-}
-
-
-function myAccFunc3() {
-    var x = document.getElementById("demoAcc3");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-        x.previousElementSibling.className += " w3-green";
-    } else { 
-        x.className = x.className.replace(" w3-show", "");
-        x.previousElementSibling.className = 
-        x.previousElementSibling.className.replace(" w3-green", "");
-    }
-}
-
-function myAccFunc4() {
-    var x = document.getElementById("demoAcc4");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-        x.previousElementSibling.className += " w3-green";
-    } else { 
-        x.className = x.className.replace(" w3-show", "");
-        x.previousElementSibling.className = 
-        x.previousElementSibling.className.replace(" w3-green", "");
-    }
-}
-</script>
+			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+					  <div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingOne">
+						  <h4 class="panel-title">
+							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							  Home Maintainence <i class="fa fa-caret-down"></i>
+							</a>
+						  </h4>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						  <div class="panel-body">
+							<a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Plumber')">Plumber</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Carpenter')">Carpenter</a>  <br>
+						  <a href="#" href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Electrician')">Electrician</a>  <br>
+						  <a href="#" href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Flooring')">Flooring</a>  <br>
+						  <a href="#" href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Kitchen Chimney Repair')">Kitchen Chimney Repair</a>  <br>
+						  <a href="#" href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Borewell Motor Repair')">Borewell motor Repair</a>  <br>
+						  </div>
+						</div>
+					  </div>
+					  <div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingTwo">
+						  <h4 class="panel-title">
+							<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							   Home Improvement  <i class="fa fa-caret-down"></i>
+							</a>
+						  </h4>
+						</div>
+						<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+						  <div class="panel-body">
+						  
+						   <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Fabrication Works')">Fabrication Works</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'POP or False Ceiling')">POP / False Ceiling</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'New Sofa Makers')">New Sofa Makers</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Interior Designer')">Interior Designer</a> <br>
+						  </div>
+						</div>
+					  </div>
+					  <div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingThree">
+						  <h4 class="panel-title">
+							<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							  Home Appliance Repair  <i class="fa fa-caret-down"></i>
+							</a>
+						  </h4>
+						</div>
+						<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+						  <div class="panel-body">
+						   <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'AC or cooler Repair')">AC/cooler Repair</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Washing Machine Repair')">Washing Machine Repair</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Gas Stove Repair')">Gas Stove Repair</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Laptop & Computer Repair')">Laptop & Computer Repair</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Refrigerator or Fridge Repair')">Refrigerator/Fridge Repair</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Fan Repair')">Fan Repair</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'TV Repair')">TV Repair</a> <br>
+						  </div>
+						</div>
+					  </div>
+					  <div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingFour">
+						  <h4 class="panel-title">
+							<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+							   Home Needs  <i class="fa fa-caret-down"></i>
+							</a>
+						  </h4>
+						</div>
+						<div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+						  <div class="panel-body">
+						   <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Drivers')">Drivers</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Car Wash- Door Step')">Car Wash- Door Step</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Packers & Movers')">Packers & Movers</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'DTH Services')">DTH Services</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Purohit or Pooja Services')">Purohit/Pooja Services</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Caterers')">Caterers</a> <br>
+						  </div>
+						</div>
+					  </div>
+					   <div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingOne">
+						  <h4 class="panel-title">
+							<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="False" aria-controls="collapseFive">
+							  Beauty Services <i class="fa fa-caret-down"></i>
+							</a>
+						  </h4>
+						</div>
+						<div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+						  <div class="panel-body">
+							<a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Facial')">Facial</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Manicure or pedicure')">Manicure/pedicure</a>  <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Tan cleaner')">Tan cleaner</a>  <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Hair dresser')">Hair dresser</a>  <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Mehandi designer')">Mehandi designer</a>  <br>
+						  </div>
+						</div>
+					  </div>
+					   <div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingOne">
+						  <h4 class="panel-title">
+							<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="False" aria-controls="collapseSix">
+							  Groceries <i class="fa fa-caret-down"></i>
+							</a>
+						  </h4>
+						</div>
+						<div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+						  <div class="panel-body">
+							
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Spices')">Spices</a>  <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Rice or Pulses')">Rice/Pulses</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Vegetables')">Vegetables</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Fruits')">Fruits</a>  <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Bakery or Beverages')">Bakery/Beverages</a>  <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Dairy')">Dairy</a> <br>
+						  <a href='javascript:void(0);' onclick="sel_selbx('#sel_id', 'Dry Fruits')">Dry Fruits</a> <br>
+						  </div>
+						</div>
+					  </div>
+</div>
+</aside>
 			<!-- /Sidebar -->
 
 			<!-- Article main content -->
-			<article class="col-md-8 maincontent">
-				<header class="page-header">
-					<!--<h1 class="page-title">Services.</h1> -->
-					<form action="">
-				<tr>
-						<td> 
-						
-						  <input list="services" placeholder="type service" name="service">
-							<!--  <datalist id="services">
-								<option value="Carpenter">	<option value="Plumber">	<option value="Electrician">
-								<option value="Mason">		<option value="Painter">	<option value="Machinery">
-								<option value="Interior Designer">						<option value="Pest controller">
-							  </datalist> -->
-						</td>&nbsp &nbsp 
-							<td> 
-								  <input list="pinnum" placeholder="enter PIN code" name="service">
-									<!--	<datalist id="pinnum">
-										<option value="530002">	<option value="530003">	<option value="530009">
-										<option value="530016">	<option value="530017">	<option value="530018">
-										<option value="530020">	<option value="530022">	<option value="530029">
-										<option value="530040">	<option value="530043">
-										</datalist>		-->
-							</td> &nbsp &nbsp
-							<td> <input type="submit" class="button" value="go"> 
-							</td>
-				</tr>
-			</form>
-				
-				</header>
-				<br>
-				<table class="table table-striped">
+			<article class="col-md-9 maincontent">
+			
+					<form action="">							
+					<div class="form-group">
+					   <div class="col-md-5">
+						  <label for="sel1">Select Service Type <br><i><small></small></i></label>
+												
+						  <select style="width:100%;" class="form-control" name="servicetype" id='sel_id'>
+						  
+						  <option value=''>-- Choose --</option>
+							<option value='Plumber'>Plumber</option>
+							<option value='Carpenter'>Carpenter</option>
+							<option value='Electrician'>Electrician</option>
+							<option value='Flooring'>Flooring</option>
+							<option value='Kitchen Chimney Repair'>Kitchen Chimney Repair</option>
+							<option value='Borewell Motor Repair'>Borewell Motor Repair</option>
+							<option value='Fabrication Works'>Fabrication Works</option>
+							<option value='POP or False Ceiling'>POP or False Ceiling</option>
+							<option value='New Sofa Makers'>New Sofa Makers</option>
+							<option value='Interior Designer'>Interior Designer</option>
+							<option value='AC or cooler Repair'>AC or Cooler Repair</option>
+							<option value='Washing Machine Repair'>Washing Machine Repair</option>
+							<option value='Gas Stove Repair'>Gas Stove Repair</option>
+							<option value='Laptop & Computer Repair'>Laptop & Computer Repair</option>
+							<option value='Refrigerator or Fridge Repair'>Refrigerator or Fridge Repair</option>
+							<option value='Fan Repair'>Fan Repair</option>
+							<option value='TV Repair'>TV Repair</option>
+							<option value='Drivers'>Drivers</option>
+							<option value='Car Wash- Door Step'>Car Wash- Door Step</option>
+							<option value='Packers & Movers'>Packers & Movers</option>
+							<option value='DTH Services'>DTH Service</option>
+							<option value='Purohit or Pooja Services'>Purohit/Pooja Service</option>
+							<option value='Caterers'>Caterers</option>
+							<option value='Facial'>Facial</option>
+							<option value='Manicure or pedicure'>Manicure/pedicure</option>
+							<option value='Tan cleaner'>Tan cleaner</option>
+							<option value='Hair dresser'>Hair dresser</option>
+							<option value='Mehandi designer'>Mehandi designer</option>
+							<option value='Spices'>Spices</option>
+							<option value='Rice or Pulses'>Rice/Pulses</option>
+							<option value='Vegetables'>Vegetables</option>
+							<option value='Fruits'>Fruits</option>
+							<option value='Bakery or Beverages'>Bakery/Beverages</option>
+							<option value='Dairy'>Dairy</option>
+							<option value='Dry Fruits'>Dry Fruits</option>
+						  </select>
+						  </div>
+						  <div class="col-md-3">
+													<label>Enter PINCode </label>
+															<input style="width:100%;" type="text" class="form-control" name="pin" ng-model="pin" placeholder="Enter PINCode" required/>
+														<span style="color:red; font-size:13" ng-show="myForm.pin.$touched && myForm.pin.$invalid">PINCode is Mandatory</span>
+													
+						  
+						  </div>
+						  <div class="col-md-1">
+						  <button type="button" style="margin-top: 25px;" class="btn btn-primary" data-toggle="modal" data-target="#myModal">GO</button>
+
+						  </div>
+					   </div> 
+					   </form>
+			
+				<br> <br> <br> <br> <br>
+				<p style="color:green"><strong>Your Required service is available</strong></p>
+				<table class="table table-striped" >
 					<thead>
 					  <tr>
 						<th>Service Name</th>
 						<th>City</th>
 						<th>PIN Code</th>
-						<th>Registration Charge</th>
+						<th>Area</th>
 					  </tr>
 					</thead>
 					<tbody>
@@ -225,18 +268,17 @@ function myAccFunc4() {
 						<td>Carpentry</td>
 						<td>Vizag</td>
 						<td>530040</td>
-						<td></td>
+						<td>Arilova</td>
 					  </tr>
 					 
 					</tbody>
 				  </table>
   <br><br>
 				
-				<p> Click on Accept Button to book service and Payment </p><br>
-				
-				<button type="button" class="btn btn-success">Continue</button>
-
-
+				<h4 class="text-center text-muted"> Click on <b>Continue</b> to book Service </h4><br>
+				<div class="col-lg-11 text-right" style="margin-left: -30px;">
+				<button class="btn btn-action" type="submit">Continue</button>
+					</div>
 			</article>
 			<!-- /Article -->
 
@@ -265,7 +307,6 @@ function myAccFunc4() {
 					</div>
 
 					<div class="col-md-3 widget">
-					
 						<h3 class="widget-title">Follow me</h3>
 						<div class="widget-body">
 							<p class="follow-me-icons">
@@ -278,7 +319,7 @@ function myAccFunc4() {
 					</div>
 
 					<div class="col-md-6 widget">
-						<h3 class="widget-title"><b><span style ="color:#FF8C00">About g<i class="fa fa-cog fa-spin"></i>Services</span></b></h3>
+						<h3 class="widget-title"><b><span style ="color:#FF8C00">About g<i class="fa fa-cog fa-spin"></i>Service</span></b></h3>
 						<div class="widget-body">
 							<p>The term goServices increasingly describes a paid worker, but it also includes non-paid homeowners or do-it-yourselfers. Tasks range from minor to major, from unskilled to highly skilled, and include painting, drywall repair, remodeling, minor plumbing work, minor electrical work, household carpentry, sheetrock, crown moulding, and furniture assembly</p>
 							<p><span style ="color:#FF8C00">What we are?:</span></b>We provide a better services by producing better goServices's with sufficient cost which was reasonable. The user or customer can easily access our website because its a user friendly. Our goal is to provide service in easy manner, making customer happy and with in budget.</p>
@@ -296,10 +337,8 @@ function myAccFunc4() {
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="#">Home</a> | 
-								<a href="about.html">About</a> |
-								<a href="services.html">Services</a> |
-								<a href="contact.html">Contact</a> |
+								<a href="index.html">Home</a> | 
+								<a href="#">Services</a> |
 								<b><a href="reguser.html">Sign Up</a></b> |
 								<b><a href="login.html">Login</a></b>
 							</p>
@@ -309,16 +348,15 @@ function myAccFunc4() {
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="text-right">
-								Copyright &copy; 2016, <a href="index.html">goService &trade; </a>  Designed by <a href="http://www.miraclesoft.com/" rel="designer">Miracle Software Systems,Inc</a> 
+								Copyright &copy; 2014, Your name. Designed by <a href="http://gettemplate.com/" rel="designer">gettemplate</a> 
 							</p>
 						</div>
 					</div>
- <!-- /row of widgets -->
+
+				</div> <!-- /row of widgets -->
 			</div>
 		</div>
-
 	</footer>	
-			
 		
 
 
@@ -327,8 +365,6 @@ function myAccFunc4() {
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<!-- 	<script src="assets/js/headroom.min.js"></script>
-	<script src="assets/js/jQuery.headroom.min.js"></script>
-	<script src="assets/js/template.js"></script>-->
+	
 </body>
 </html>

@@ -4,8 +4,8 @@ var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
-var me = 'raghupatruni175';
-var password = '7416133133';
+var me = 'navya175';
+var password = '8897054977';
 var cloudant = Cloudant({
 	account : me,
 	password : password
@@ -15,8 +15,8 @@ var smtpTransport = nodemailer.createTransport(smtpTransport({
 	secureConnection : false,
 	port : 587,
 	auth : {
-		user : "sainavya.175@gmail.com",
-		pass : "8897054977"
+		user : "goservice.org@gmail.com",
+		pass : "goService@2016"
 	}
 }));
 // create a new express server
@@ -116,14 +116,17 @@ app.post('/login', function(req, res) {
 app.post('/forgotPassword', function(req, res) {
 	var Email = req.body.Email;
 	var randomPassword = getRandomCode();
-	var db = cloudant.db.use('servicereg');
-	db.get(Email, function(err, data) {
+	var dbUser = cloudant.db.use('userregister');
+	var dbService = cloudant.db.use('servicereg');
+	dbUser.get(Email, function(err, data) {
+		if (isEmpty(data)) {
+		dbService.get(Email, function(err, data) {
 		var loginJson = JSON.stringify(data);
 		var loginStringJSON = JSON.parse(loginJson);
 
 		// sending random password to mail here
 		var mailOptions = {
-			from : "sainavya.175@gmail.com",
+			from : "goservice.org@gmail.com",
 			to : Email,
 			subject : "Re: Password Forgotten Request from goservice",
 			text : "Your new Password is : " + randomPassword
@@ -138,7 +141,7 @@ app.post('/forgotPassword', function(req, res) {
 			}
 		});
 		console.log(loginStringJSON);
-		db.insert({
+		dbService.insert({
 			_id : Email,
 			_rev : loginStringJSON._rev,
 			 fullName: loginStringJSON.FullName,
@@ -154,9 +157,134 @@ app.post('/forgotPassword', function(req, res) {
 
 		res.send("<p>New Password has been sent to your mail!</p>");
 	});
+		}
+		else{
+			dbUser.get(Email, function(err, data) {
+				var loginJson = JSON.stringify(data);
+				var loginStringJSON = JSON.parse(loginJson);
+
+				// sending random password to mail here
+				var mailOptions = {
+					from : "goservice.org@gmail.com",
+					to : Email,
+					subject : "Re: Password Forgotten Request from goservice",
+					text : "Your new Password is : " + randomPassword
+				};
+				console.log(mailOptions);
+				smtpTransport.sendMail(mailOptions, function(error, response) {
+					if (error) {
+						console.log(error);
+						res.end("error");
+					} else {
+						res.end("sent");
+					}
+				});
+				console.log(loginStringJSON);
+				dbUser.insert({
+					_id : Email,
+					_rev : loginStringJSON._rev,
+					 fullName: loginStringJSON.FullName,
+					password : randomPassword,
+					PhoneNumber : loginStringJSON.PhoneNumber,
+					address : loginStringJSON.address,
+					//ServiceType : loginStringJSON.ServiceType,
+					city : loginStringJSON.city,
+					Pincode : loginStringJSON.Pincode,
+				}, function(err, data) {
+					console.log(err);
+				});
+
+				res.send("<p>New Password has been sent to your mail!</p>");
+			});
+
+			}
+});
 });
 
-app.get('/userregister', function(req, res) {
+/*reset password*/
+app.post('/resetpassword', function(req, res) {
+
+	var doc = req.body.Email;
+	var oldpword = req.body.OldPassword;
+	var newpword = req.body.NewPassword;
+	console.log(doc);
+	console.log(newpword);
+	var dbUser = cloudant.db.use('userregister');
+	var dbService = cloudant.db.use('servicereg');
+	dbService.get(doc, function(err, data1) {
+		if(isEmpty(data1)){
+			dbUser.get(doc, function(err, data) {
+				if(isEmpty(data)) {
+					res.send("wrongUserName");
+				}else {
+					var loginJson = JSON.stringify(data);
+					var loginStringJSON = JSON.parse(loginJson);
+					if(oldpword==loginStringJSON.password){
+						console.log(loginStringJSON);
+						dbUser.insert({
+							_id : doc,
+							_rev : loginStringJSON._rev,
+							fullName: loginStringJSON.FullName,
+							password : newpword,
+							PhoneNumber : loginStringJSON.PhoneNumber,
+							addr : loginStringJSON.addr,
+							city : loginStringJSON.city,
+							Pincode : loginStringJSON.Pincode,
+						}, function(err, data) {
+							console.log(err);
+						}
+						);
+
+						res.send("<p>New Password has been generated</p>");
+					}else{
+						res.send("<p>wrong password</p>");
+					}
+				
+					if (err){
+						return err;
+					}
+				}
+				
+			});
+		}
+					//res.send(data)
+		
+					else { 
+						var loginJson = JSON.stringify(data1);
+						var loginStringJSON = JSON.parse(loginJson);
+						if(oldpword==loginStringJSON.password){
+							console.log(loginStringJSON);
+							dbService.insert({
+								_id : doc,
+								_rev : loginStringJSON._rev,
+								fullName: loginStringJSON.FullName,
+								password : newpword,
+								PhoneNumber : loginStringJSON.PhoneNumber,
+								address : loginStringJSON.address,
+								ServiceType : loginStringJSON.ServiceType,
+								city : loginStringJSON.city,
+								Pincode : loginStringJSON.Pincode,
+							}, function(err, data1) {
+								console.log(err);
+							}
+							);
+
+							res.send("<p>New Password has been generated</p>");
+						}else{
+							res.send("<p>wrong password</p>");
+						}
+				
+						if (err){
+							return err;
+						}
+					}
+					//res.send(data)
+	
+		});
+		
+	});
+
+app.get('/register', function(req, res) {
 	res.sendFile(__dirname + '/public/' + 'index.html');
 })
 app.post('/register', function(req, res) {
@@ -186,7 +314,7 @@ app.post('/register', function(req, res) {
 		}
 		// console.log(data);
 		// res.send("Registered Successfull");
-		res.redirect("index.html");
+		res.redirect("loginPage.html");
 		//alert();
 	});
 })
@@ -222,7 +350,7 @@ app.post('/serregister', function(req, res) {
 		}
 		// console.log(data);
 		// res.send("Registered Successfull");
-		res.redirect("index.html");
+		res.redirect("loginPage.html");
 	});
 })
 // get the app environment from Cloud Foundry
@@ -232,3 +360,6 @@ app.listen(appEnv.port, '0.0.0.0', function() {
 	// print a message when the server starts listening
 	console.log("server starting on " + appEnv.url);
 });
+
+	
+	
