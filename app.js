@@ -266,10 +266,9 @@ app.post('/resetpassword', function(req, res) {
 				});
 
 				res.send("<p>New Password has been generated</p>");
-				res.redirect("loginPage.html");
+				
 			} else {
 				res.send("<p>wrong password</p>");
-				res.redirect("resetpassword.html");
 			}
 
 			if (err) {
