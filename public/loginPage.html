@@ -100,9 +100,6 @@
 				var code = urlWithCode.substring(idx + 5).replace("#", "");
 				alert(code);
 				$http.get("tokens?code=" + code).then(function(response) {
-					alert("1234");
-					
-					
 					var data = JSON.parse(JSON.stringify(response)).data.split(" ");
 					sessionStorage.setItem("userName", data[1]);
 					sessionStorage.setItem("userMail", data[0]);

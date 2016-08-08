@@ -289,9 +289,7 @@ app.get("/tokens", function(req, res) {
 				var dbUser = cloudant.db.use('userregister');
 				var returnResponse = gmailStringJSON.emailAddress + " " + gPlusStringJSON.displayName.split(" ")[0] + " ";
 				console.log(gmailStringJSON.emailAddress);
-				
 				console.log(gPlusStringJSON.displayName);
-				
 				dbUser.get(gmailStringJSON.emailAddress, function(err, data) {
 					console.log(JSON.stringify(data));
 					if (!isEmpty(data)) {
