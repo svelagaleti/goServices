@@ -18,40 +18,102 @@
 <!-- Custom styles for our template -->
 <link rel="stylesheet" href="bootstrap-theme.css" media="screen">
 <link rel="stylesheet" href="main.css">
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
 <script>
-$(document).ready(function(){
-		alert("JQUERY");
-$("#sign").click(function(){
-	var Email=$('#signemail').val();
-	var Password = $('#signpsw').val();
-	$.post("/login",{Password : Password,Email : Email},function(responseText) {
-		alert(responseText);
-		if(responseText === "wrongUserName"){
-			$('#mailWrong').html("<h5>No User Accout with given Mail Address</h5>");
-		}else if(responseText === "wrongPassword"){
-			$('#pwdWrong').html("<h5>Authentication Failed</h5>");
-		}else{
-	//		alert("asdfasd00");
-			$(location).attr('href','/myaccount.html');
-		}
+	$(document)
+			.ready(
+					function() {
+						alert("JQUERY");
+						$("#sign")
+								.click(
+										function() {
+											var Email = $('#signemail').val();
+											var Password = $('#signpsw').val();
+											$.post("/login",
+															{Password : Password,
+																Email : Email
+															},
+															function(
+																	responseText) {
+																alert(responseText);
+																if (responseText === "wrongUserName") {
+																	$(
+																			'#mailWrong')
+																			.html(
+																					"<h5>No User Accout with given Mail Address</h5>");
+																} else if (responseText === "wrongPassword") {
+																	$(
+																			'#pwdWrong')
+																			.html(
+																					"<h5>Authentication Failed</h5>");
+																} else {
+																	//		alert("asdfasd00");
+																	$(location)
+																			.attr(
+																					'href',
+																					'/myaccount.html');
+																}
+															});
+										});
+					});
+	$(document).on("click", "#forgotPassword", function() {
+		alert("fp");
+		Email = $('#signemail').val();
+		alert("Email");
+		$.post("/forgotPassword", {
+			Email : Email
+		}, function(responseHTML) {
+			$('#forgotPwdBlock').html(responseHTML);
 		});
 	});
-	});
-$(document).on("click", "#forgotPassword", function() {
-	alert("fp");
-	Email = $('#signemail').val();
-	alert("Email");
-	$.post("/forgotPassword",{Email : Email}, function(responseHTML){
-		$('#forgotPwdBlock').html(responseHTML);
-	});
-});
+</script>
 
-		</script>
-		
+
+<script>
+		var app = angular.module("app", []);
+		app.controller("ctrl",['$compile', '$scope', '$window', '$http', function($compile, $scope, $window, $http){
+			var url;
+			var windowThatWasOpened;
+			$http.get("url").then(function(reponse) {
+				url = reponse.data;
+				alert(url);
+			});
+			$scope.login = function() {
+				alert("ASdf");
+				windowThatWasOpened = $window.open(url, "Google Authentication", "width=500,height=400");
+			};
+			window.onmessage = function(e) {
+				var access_token;
+				windowThatWasOpened.close();
+				var urlWithCode = e.data;
+				var idx = urlWithCode.lastIndexOf("code=");
+				var code = urlWithCode.substring(idx + 5).replace("#", "");
+				alert(code);
+				$http.get("tokens?code=" + code).then(function(response) {
+					alert("1234");
+					
+					
+					var data = JSON.parse(JSON.stringify(response)).data.split(" ");
+					sessionStorage.setItem("userName", data[1]);
+					sessionStorage.setItem("userMail", data[0]);
+					
+					$(location).attr('href', '/index')
+				});
+			};
+		}]);
+	</script>
 </head>
-<body>
+<body ng-app="app" ng-controller="ctrl">
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom">
 		<div class="container">
@@ -62,27 +124,32 @@ $(document).on("click", "#forgotPassword", function() {
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.html">g<span style ="color:#FF8C00"><i class="fa fa-cog fa-spin"></i></span>Service</a></div>
+				<a class="navbar-brand" href="index.html">g<span
+					style="color: #FF8C00"><i class="fa fa-cog fa-spin"></i></span>Service
+				</a>
 			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav pull-right">
-					<li><a href="index.html"><i class="fa fa-home"></i>Home</a></li>
-
-					<li><a href="service.html"><i class="fa fa-wrench"></i>Services</a></li>
-
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"><i class="fa fa-pencil-square-o"></i>Sign up <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="userReg.html"><i class="fa fa-users"></i>Customer</a></li>
-							<li><a href="servicereg.html"><i class="fa fa-user"></i>Service Men</a></li>
-						</ul></li>
-					<!--<li class="active"><a class="btn" href="login.html">Login</a></li>-->
-				</ul>
-			</div>
-			<!--/.nav-collapse -->
 		</div>
-		<script>
-			<!--function myFunction() {
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav pull-right">
+				<li><a href="index.html"><i class="fa fa-home"></i>Home</a></li>
+
+				<li><a href="service.html"><i class="fa fa-wrench"></i>Services</a></li>
+
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown"><i class="fa fa-pencil-square-o"></i>Sign
+						up <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="userReg.html"><i class="fa fa-users"></i>Customer</a></li>
+						<li><a href="servicereg.html"><i class="fa fa-user"></i>Service
+								Men</a></li>
+					</ul></li>
+				<!--<li class="active"><a class="btn" href="login.html">Login</a></li>-->
+			</ul>
+		</div>
+		<!--/.nav-collapse -->
+	</div>
+	<!--	<script>
+			function myFunction() {
 			var person = prompt("Please enter your email", "");
 			if (confirm("check your email!") == true) {
 			person = "You pressed OK!";
@@ -90,9 +157,9 @@ $(document).on("click", "#forgotPassword", function() {
 			person = "You pressed Cancel!";
 			}
 			document.getElementById("demo").innerHTML = person;
-			}-->
+			}
 			</script>
-	
+-->
 	<!-- /.navbar -->
 
 	<header id="head" class="secondary"></header>
@@ -133,25 +200,40 @@ $(document).on("click", "#forgotPassword", function() {
 							</div>
 							<hr>
 							<div class="col-lg-8">
-							<div id="forgotPwdBlock"><button id="forgotPassword" 
-							class="btn btn-action" >Forgot your password </button></div>
+								<div id="forgotPwdBlock">
+									<button id="forgotPassword" class="btn btn-action">Forgot
+										your password</button>
+								</div>
 							</div>
+
+							<div class="col-lg-4 text-right">
+								<button class="btn btn-action" type="submit" id="sign">Sign
+									in</button>
+								<br>
+							</div>
+
+
+							<div class="col-md-6 col-md-offset-3 col-sm-4 col-md-offset-5">
+								<p style="text-align: center">
+									<strong>or</strong>
+								</p>
+								<a href=""> <img src="images1/googleplussignin.png"
+									ng-click="login()" class="img-rounded"
+									alt="signup with Google+" width="300" height="60">
+								</a>
+								
 							
-								<div class="col-lg-4 text-right">
-									<button class="btn btn-action" type="submit" id="sign">Sign
-										in</button> <br> 
-								</div>
-								</div>
-							</div>
+			</div>
 						</div>
 					</div>
+				</div>
 
-				
+
 
 			</article>
 			<!-- /Article -->
 		</div>
-		</div>
+	</div>
 	<!-- /container -->
 
 
@@ -187,7 +269,9 @@ $(document).on("click", "#forgotPassword", function() {
 
 					<div class="col-md-6 widget">
 						<h3 class="widget-title">
-							<b><span style="color: #FF8C00">About g<span style ="color:#FF8C00"><i class="fa fa-cog fa-spin"></i></span>Services</span></b>
+							<b><span style="color: #FF8C00">About g<span
+									style="color: #FF8C00"><i class="fa fa-cog fa-spin"></i></span>Services
+							</span></b>
 						</h3>
 						<div class="widget-body">
 							<p>The term goServices increasingly describes a paid worker,
@@ -215,7 +299,6 @@ $(document).on("click", "#forgotPassword", function() {
 		<div class="footer2">
 			<div class="container">
 				<div class="row">
-
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
@@ -226,7 +309,6 @@ $(document).on("click", "#forgotPassword", function() {
 							</p>
 						</div>
 					</div>
-
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="text-right">
@@ -240,11 +322,6 @@ $(document).on("click", "#forgotPassword", function() {
 				</div>
 			</div>
 	</footer>
-
-
-
-
-
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
